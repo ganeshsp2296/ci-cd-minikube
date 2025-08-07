@@ -4,19 +4,7 @@ metadata:
   name: jenkins
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: jenkins-pvc
-  namespace: jenkins
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 4Gi
 
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -45,10 +33,10 @@ spec:
               mountPath: /var/jenkins_home
       volumes:
         - name: jenkins-data
-          persistentVolumeClaim:
-            claimName: jenkins-pvc
+          emptyDir: {}
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
